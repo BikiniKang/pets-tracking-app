@@ -3,6 +3,7 @@
 		v-model="dialogVisible"
 		:title="props.eventId ? 'Edit event' : 'Add an event'"
 		:show-close="false"
+		@closed="$emit('setVisible')"
 		custom-class="event-dialog"
 	>
 		<el-form :model="form">

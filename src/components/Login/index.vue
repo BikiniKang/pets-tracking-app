@@ -111,7 +111,7 @@ const submitForm = formEl => {
                 const token = res.data.token;
                 localStorage.setItem('token', token);
                 router.push({
-                    name: 'Dashboard',
+                    name: 'Home',
                 });
             }
         } else {

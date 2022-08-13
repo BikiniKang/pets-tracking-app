@@ -3,6 +3,7 @@
 		v-model="dialogVisible"
 		title="Add a task"
 		:show-close="false"
+		@closed="$emit('setVisible')"
 		custom-class="task-dialog"
 	>
 		<el-form :model="form">

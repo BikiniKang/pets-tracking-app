@@ -112,4 +112,19 @@ const router = createRouter({
 	routes
 });
 
+const whiteList = ['/login', '/register']
+
+
+router.beforeEach((to, from, next) => {
+	if (!localStorage.getItem('token')) {
+		if (whiteList.indexOf(to.path) !== -1) {
+			next()
+		} 
+		else {
+			next('/login')
+		}
+	}
+  })
+  
+
 export default router;
