@@ -61,20 +61,20 @@ const remarks = ref({ '2021-1-13': 'some tings' });
 const value = ref(new Date());
 
 onMounted(() => {
-	// getUserProfile();
+	getUserProfile();
 });
 
-// const getUserProfile = async() => {
-//     const res = await httpServices.userProfile.getUserProfile({
-//         uid: '4EL4hp_qRUYMzzal_G29f',
-//     });
-//     userObject.image = res.data.data.image;
-//     userObject.firstName = res.data.data.firstName;
-//     userObject.lastName = res.data.data.lastName;
-//     userObject.petList = res.data.data.petList;
-//     console.log('res', res);
-//     console.log('firstName:', userObject.firstName);
-// }
+const getUserProfile = async() => {
+    const res = await httpServices.userProfile.getUserProfile({
+        uid: '4EL4hp_qRUYMzzal_G29f',
+    });
+    userObject.image = res.data.data.image;
+    userObject.firstName = res.data.data.firstName;
+    userObject.lastName = res.data.data.lastName;
+    userObject.petList = res.data.data.petList;
+    console.log('res', res);
+    console.log('firstName:', userObject.firstName);
+}
 </script>
 
 <script>
@@ -117,19 +117,19 @@ export default {
 		changeInfo(firstName, lastName) {
 			this.userObject.firstName = firstName;
 			this.userObject.lastName = lastName;
-		}
+		},
 		// this function send a request and get the most up-to-date user infomation (when user infomation is changed)
-		// getUserInfo() {
-		// 	httpServices.dashboard
-		// 		.user_dashboard({ uid: this.$data.uid })
-		// 		.then(response => {
-		// 			let userObject = response.data.data;
-		// 			//edit page, assign pet object to pet form
-		// 			this.$data.userObject.firstName = userObject.firstName;
-		// 			this.$data.userObject.lastName = userObject.lastName;
-		// 			// update user avatar
-		// 		});
-		// }
+		getUserInfo() {
+			httpServices.dashboard
+				.user_dashboard({ uid: this.$data.uid })
+				.then(response => {
+					let userObject = response.data.data;
+					//edit page, assign pet object to pet form
+					this.$data.userObject.firstName = userObject.firstName;
+					this.$data.userObject.lastName = userObject.lastName;
+					// update user avatar
+				});
+		}
 	}
 };
 </script>
