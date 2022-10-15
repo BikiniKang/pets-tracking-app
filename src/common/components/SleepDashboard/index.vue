@@ -88,12 +88,20 @@
 				@click="AdddialogFormVisible = true"
 				><el-icon><Plus /></el-icon> Add Data</el-button
 			>
+			<el-button
+				class="rihgt_buttons"
+				type="primary"
+				plain
+				style="margin-top: 1vw"
+				@click="alertdialogFormVisible = true"
+				> Alert Settings</el-button
+			>
 		</div>
 	</div>
 	<!-- add dialog -->
 	<el-dialog width="350px" title="Add Data" v-model="AdddialogFormVisible">
 		<el-form :model="documentForm">
-			<el-form-item label="Date">
+			<el-form-item label="Date" class="add_window">
 				<el-date-picker
 					type="date"
 					placeholder="Select a Date"
@@ -104,7 +112,7 @@
 				</el-date-picker>
 			</el-form-item>
 
-			<el-form-item label="Sleep Time">
+			<el-form-item label="Sleep Time" class="add_window">
 				<el-time-select
 					placeholder="Enter time"
 					v-model="documentForm.duration_str"
@@ -150,6 +158,34 @@
 			</span>
 		</template>
 	</el-dialog>
+
+	<!-- alert dialog -->
+	<el-dialog width="450px" title="Alert Settings" v-model="alertdialogFormVisible">
+		<el-form :model="documentForm">
+			<el-form-item label="Minimum Sleep Time Threshold" class="alert_window">
+				<el-input
+					v-model="documentForm.weight"
+					placeholder="NA"
+					autocomplete="off"
+				></el-input>
+			</el-form-item>
+
+
+		</el-form>
+		<template #footer>
+			<span class="dialog-footer">
+				<el-button
+					@click="alertdialogFormVisible = false"
+					type="primary"
+					plain
+					>Cancel</el-button
+				>
+				<el-button type="primary" plain
+					>Save</el-button
+				>
+			</span>
+		</template>
+	</el-dialog>
 </template>
 
 <script setup>
@@ -172,6 +208,8 @@ export default {
 	created() {
 		this.$data.radio = 1;
 		this.$data.showListView = false;
+		this.$data.alertdialogFormVisible = false;
+
 		this.$data.AdddialogFormVisible = false;
 		this.$data.documentForm = {
 			pet_id: this.$data.petId,
@@ -352,5 +390,16 @@ export default {
 .line_chart {
 	margin-top: 2%;
 	margin-left: 2%;
+}
+.alert_window :deep(.el-form-item__label) {
+	width: 250px;
+}
+
+.add_window :deep(.el-input__inner) {
+	width: 200px;
+}
+
+.add_window :deep(.el-form-item__label) {
+	width: 100px;
 }
 </style>
