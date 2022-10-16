@@ -92,7 +92,8 @@
 				plain
 				style="margin-top: 1vw"
 				@click="alertdialogFormVisible = true"
-				> Alert Settings</el-button
+			>
+				Alert Settings</el-button
 			>
 			<!-- add new document pop up window -->
 			<el-button
@@ -122,15 +123,13 @@
 			</el-form-item>
 
 			<el-form-item label="Exercise Time" class="add_window">
-				<el-time-select
+				<el-time-picker
 					placeholder="Enter time"
 					v-model="documentForm.duration_str"
 					format="HH:mm"
-					start="00:01"
-					step="00:01"
-					end="12:00"
+					value-format="HH:mm"
 				>
-				</el-time-select>
+				</el-time-picker>
 			</el-form-item>
 
 			<el-form-item label="Date" class="add_window">
@@ -180,17 +179,19 @@
 	</el-dialog>
 
 	<!-- alert dialog -->
-	<el-dialog width="450px" title="Alert Settings" v-model="alertdialogFormVisible">
+	<el-dialog
+		width="450px"
+		title="Alert Settings"
+		v-model="alertdialogFormVisible"
+	>
 		<el-form :model="documentForm">
-			<el-form-item label="Minimum Exercise Time Threshold" class="alert_window">
-				<el-input
-					v-model="documentForm.weight"
-					placeholder="NA"
-					autocomplete="off"
-				></el-input>
+			<el-form-item
+				label="Minimum Exercise Time Threshold"
+				class="alert_window"
+			>
+				<el-time-picker v-model="value1" format="hh:mm">
+				</el-time-picker>
 			</el-form-item>
-
-
 		</el-form>
 		<template #footer>
 			<span class="dialog-footer">
@@ -200,9 +201,7 @@
 					plain
 					>Cancel</el-button
 				>
-				<el-button type="primary" plain
-					>Save</el-button
-				>
+				<el-button type="primary" plain>Save</el-button>
 			</span>
 		</template>
 	</el-dialog>
@@ -345,7 +344,7 @@ export default {
 
 			// add new exercise data
 			httpServices.healthTracking
-				.addexercise(this.$data.documentForm)
+				.addexercise(this.$data.documentForm, 'checkcheck')
 				.then(response => {
 					console.log(response);
 					location.reload();
@@ -389,7 +388,7 @@ export default {
 }
 
 .filter_add {
-	margin-top: 3vh;
+	margin-top: 2vh;
 	display: flex;
 	justify-content: space-evenly;
 	flex-direction: column;
@@ -408,7 +407,6 @@ export default {
 		flex-direction: column;
 		align-items: center;
 		margin-left: 50px;
-		margin-top: 20px;
 	}
 
 	:deep(.el-radio-group) {
@@ -417,7 +415,6 @@ export default {
 		flex-direction: column;
 	}
 }
-
 
 .line_chart {
 	margin-top: 2%;
